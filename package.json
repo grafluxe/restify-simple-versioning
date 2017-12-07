@@ -1,0 +1,30 @@
+{
+  "name": "restify-simple-versioning",
+  "description": "Easily add version support to your Restify APIs.",
+  "main": "src/restify-simple-versioning.js",
+  "scripts": {
+    "lint": "eslint src/"
+  },
+  "author": "Leandro Silva (http://grafluxe.com)",
+  "homepage": "https://github.com/Grafluxe/restify-simple-versioning",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": "Grafluxe/restify-simple-versioning.git",
+  "keywords": [
+    "restify",
+    "version",
+    "versioning",
+    "url",
+    "uri",
+    "rest",
+    "api",
+    "API-Version",
+    "middleware"
+  ],
+  "dependencies": {
+    "restify-errors": "^5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.1"
+  }
+}
