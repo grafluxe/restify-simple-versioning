@@ -7,6 +7,13 @@ let errors = require("restify-errors");
  */
 
 class Versioner {
+  /**
+   * An array of available API versions.
+   * @type {Array}
+   * @example
+   * let versioner = require("restify-simple-versioning");
+   * versioner.versions = [1, 2];
+   */
   static set versions(val) {
     Versioner._versions = val;
   }
@@ -15,14 +22,33 @@ class Versioner {
     return Versioner._versions || [1];
   }
 
+  /**
+   * Returns the current API version.
+   * @type {Number}
+   */
   static get currentVersion() {
     return Versioner._currentVer;
   }
 
+  /**
+   * Returns the API version as seen in the URI. If no version is used in
+   * the URI, an empty string is returned.
+   * @type {String}
+   */
   static get uri() {
     return (Versioner._noVersionInURI ? "" : "v" + Versioner._currentVer);
   }
 
+  /**
+   * Adds version path support to your URI. The version format is
+   * the letter "v" followed by a number (e.g. v1). If no version
+   * is added to the URI, the latest version will be used by default.
+   * Additionally, the header 'API-Version' is included in each response.
+   * @throws {InvalidVersionError} Throws if the version you requested does not exist.
+   * @param {Object}   req  The Restify request param.
+   * @param {Object}   res  The Restify result param.
+   * @param {Function} next The Restify next method.
+   */
   static addVersionRoute(req, res, next) {
     let parts = req.url.match(/\/v(\d{1,})(\/.+)/);
 
