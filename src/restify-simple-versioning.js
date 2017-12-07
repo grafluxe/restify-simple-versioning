@@ -30,6 +30,7 @@ class Versioner {
     }
 
     if (Versioner.versions.includes(Versioner._currentVer)) {
+      res.header("API-Version", Versioner._currentVer);
       next();
     } else {
       next(new errors.InvalidVersionError({
