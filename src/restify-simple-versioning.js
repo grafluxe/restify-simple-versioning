@@ -36,7 +36,7 @@ class Versioner {
    * @type {String}
    */
   static get uri() {
-    return (Versioner._noVersionInURI ? "" : "v" + Versioner._currentVer);
+    return (Versioner._versionInURI ? "v" + Versioner._currentVer : "");
   }
 
   /**
@@ -52,14 +52,15 @@ class Versioner {
   static addVersionRoute(req, res, next) {
     let parts = req.url.match(/\/v(\d{1,})(\/.+)/);
 
-    if (!parts) {
-      Versioner._noVersionInURI = true;
-      Versioner._currentVer = Versioner.versions.reduce((curr, next) => Math.max(curr, next));
-    } else {
-      Versioner._noVersionInURI = false;
+    if (parts) {
+      Versioner._versionInURI = true;
       Versioner._currentVer = Number(parts[1]);
       req.url = parts[2];
+    } else {
+      Versioner._versionInURI = false;
+      Versioner._currentVer = Versioner.versions.reduce((curr, next) => Math.max(curr, next));
     }
+
 
     if (Versioner.versions.includes(Versioner._currentVer)) {
       res.header("API-Version", Versioner._currentVer);
