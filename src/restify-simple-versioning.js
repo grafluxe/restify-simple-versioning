@@ -19,12 +19,18 @@ class Versioner {
     return Versioner._currentVer;
   }
 
+  static get uri() {
+    return (Versioner._noVersionInURI ? "" : "v" + Versioner._currentVer);
+  }
+
   static addVersionRoute(req, res, next) {
     let parts = req.url.match(/\/v(\d{1,})(\/.+)/);
 
     if (!parts) {
+      Versioner._noVersionInURI = true;
       Versioner._currentVer = Versioner.versions.reduce((curr, next) => Math.max(curr, next));
     } else {
+      Versioner._noVersionInURI = false;
       Versioner._currentVer = Number(parts[1]);
       req.url = parts[2];
     }
