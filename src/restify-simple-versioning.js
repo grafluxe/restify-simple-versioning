@@ -58,9 +58,13 @@ class Versioner {
       req.url = parts[2];
     } else {
       Versioner._versionInURI = false;
-      Versioner._currentVer = Versioner.versions.reduce((curr, next) => Math.max(curr, next));
-    }
 
+      if (!Versioner._latestVersion) {
+        Versioner._latestVersion = Versioner.versions.reduce((curr, next) => Math.max(curr, next));
+      }
+
+      Versioner._currentVer = Versioner._latestVersion;
+    }
 
     if (Versioner.versions.includes(Versioner._currentVer)) {
       res.header("API-Version", Versioner._currentVer);
