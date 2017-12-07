@@ -50,7 +50,7 @@ class Versioner {
    * @param {Function} next The Restify next method.
    */
   static addVersionRoute(req, res, next) {
-    let parts = req.url.match(/\/v(\d{1,})(\/.+)/);
+    let parts = req.url.match(/^\/v(\d{1,})(\/.+)/);
 
     if (parts) {
       Versioner._versionInURI = true;
