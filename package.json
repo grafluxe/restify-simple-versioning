@@ -22,9 +22,9 @@
     "middleware"
   ],
   "dependencies": {
-    "restify-errors": "^5.0.0"
+    "restify-errors": "^8.0.1"
   },
   "devDependencies": {
-    "eslint": "^4.12.1"
+    "eslint": "^6.1.0"
   }
 }
